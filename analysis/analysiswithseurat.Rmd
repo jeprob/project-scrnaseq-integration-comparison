@@ -1,0 +1,123 @@
+---
+title: "Analysis with Seurat"
+author: "jeprob"
+date: "2021-01-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Seurat integration: 
+Dataset preprocessing and integration was adapted from [this vignette](https://satijalab.org/seurat/v3.0/integration.html) by the developers of Seurat. Furthermore this [tutorial](https://satijalab.org/seurat/v3.2/pbmc3k_tutorial.html) for pbmcs was followed for cell clustering.
+
+
+## Load packages
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+library(Seurat)
+library(cowplot)
+library(SeuratDisk)
+library(SeuratData)
+```
+
+
+## Read in the data
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+data_pbmc <- readRDS("./data/wonglab_10x_XLP2_sce_after_scDblFinder.rds")
+data_pbmc
+head(counts(data_pbmc))
+```
+
+## Dataset preprocessing
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Set up Seurat object
+pbmc <- as.Seurat(x = data_pbmc)
+# pbmc <- Seurat::NormalizeData(pbmc, verbose=FALSE)
+
+#Split the seurat object into individual datasets divided by Sample (in metadata)
+pbmc.list <- SplitObject(pbmc, split.by = 'Sample') 
+
+#Identify variable features with variance stabilizing transformation (feature selection) for each dataset
+for (i in 1:length(pbmc.list)) {
+    pbmc.list[[i]] <- NormalizeData(pbmc.list[[i]]) %>%  FindVariableFeatures(selection.method = "vst", nfeatures = 2000, verbose = FALSE)  %>% ScaleData()
+}
+
+#just for visualization purposes: 
+#Identify the 1000 most highly variable genes from 1st dataset and plot variable features with and without labels
+top1000 <- head(VariableFeatures(pbmc.list[[1]]), 1000)
+plot1 <- VariableFeaturePlot(pbmc.list[[1]])
+plot1 
+```
+One can see in the plot that the 2000 most variable features chosen by the VariableFeatures function are actually the ones displaying the highest standardized variance. 
+
+
+## Integration of the six datasets
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Find anchors between individual datasets to construct a reference
+pbmc.anchors <- FindIntegrationAnchors(pbmc.list, dims=1:30)
+
+#Integrate data (batch corrected expression matrix)
+pbmc.integrated <- IntegrateData(anchorset=pbmc.anchors, dims=1:30)
+
+#save and reload data
+# SaveH5Seurat(pbmc.integrated, 'integrated_seurat', overwrite = FALSE, verbose = TRUE)
+# pbmc.integrated <- LoadH5Seurat("../integrated_seurat.h5Seurat")
+```
+In the last iteration of the FindIntegrationAnchors function 17359 anchors were found and 7623 anchors retained, to use for integration. 
+
+## Downstream analysis
+For comparison we perform the same UMAP and Nearest Neighbor analyses with the embeddings from the Seurat batch corrected gene expression matrix (integrated datasets) and the uncorrected initial PC embeddings (original datasets).
+
+We start with the analysis of the integrated dataset:
+```{r, echo=FALSE, message=FALSE, warning=FALSE, cho=TRUE}
+#standard workflow for visualization: scale integrated data, run PCA and visualize results with UMAP
+DefaultAssay(pbmc.integrated) <- "integrated"
+pbmc.integrated <- ScaleData(pbmc.integrated, verbose = FALSE)
+pbmc.integrated <- RunPCA(pbmc.integrated, npcs = 30, verbose = FALSE)
+pbmc.integrated <- RunUMAP(pbmc.integrated, reduction = "pca", dims = 1:30)
+
+p1 <- DimPlot(pbmc.integrated, reduction = "umap", group.by = "Sample")
+p1
+```
+We an see that the data is well integrated, and cells do not cluster by dataset in the UMAP space. 
+
+Now we aim to identify different clusters from the integrated dataset in the UMAP embedding.
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#find clusters
+pbmc.integrated <- FindNeighbors(pbmc.integrated, dims = 1:10)
+pbmc.integrated <- FindClusters(pbmc.integrated, resolution = 0.8)
+head(Idents(pbmc.integrated), 5)
+pbmc.integrated$newcluster <- as.factor(Idents(pbmc.integrated))
+
+#plot by cluster
+p2 <- DimPlot(pbmc.integrated, reduction = "umap", group.by = "newcluster", label = TRUE, repel = TRUE)
+p2
+```
+We find 20 clusters identified from the Seurat integrated embeddings.
+
+Now we run the same analysis for the original dataset without integration. The only thing that changes is that one first has to find variable features on the whole unprocessed dataset, which had already been done for the integrated dataset.
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#standard workflow for visualization
+pbmc <- FindVariableFeatures(pbmc, nfeatues=2000)
+pbmc <- ScaleData(pbmc, verbose = FALSE)
+pbmc <- RunPCA(pbmc, npcs = 30, verbose = FALSE)
+pbmc <- RunUMAP(pbmc, reduction = "pca", dims = 1:30)
+p1_bef <- DimPlot(pbmc, reduction = "umap", group.by = "Sample")
+p1_bef
+```
+We see, that the original dataset is not well integrated and cells cluster by patient (het1 to wt2) in the UMAP plot above. 
+
+As previously done, we have a look at the clusters that can be identified from the original unprocessed embeddings in the UMAP space. 
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#find clusters
+pbmc <- FindNeighbors(pbmc, dims = 1:10)
+pbmc <- FindClusters(pbmc, resolution = 0.8)
+head(Idents(pbmc), 5)
+pbmc$newcluster <- as.factor(Idents(pbmc))
+
+#plot by cluster
+p2_bef <- DimPlot(pbmc, reduction = "umap", group.by = "newcluster", label = TRUE, repel = TRUE)
+p2_bef
+```
+We note that in comparison to the 20 identified clusters from the Seurat embedding, only 19 clusters could be recognized from the original UMAP embeddings. 

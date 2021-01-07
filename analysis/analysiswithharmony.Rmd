@@ -1,0 +1,127 @@
+---
+title: "Analysis with Harmony"
+author: "jeprob"
+date: "2021-01-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Harmony integration within the Seurat workflow: 
+This workflow is adapted from [this vignette](https://github.com/immunogenomics/harmony/blob/master/docs/SeuratV3.html).
+
+
+## Load packages
+```{r package, echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+library(harmony)
+library(cowplot)
+library(Seurat)
+```
+
+
+## Read in the data
+```{r readin, echo=TRUE, message=FALSE, warning=FALSE}
+data_pbmc <- readRDS("./data/wonglab_10x_XLP2_sce_after_scDblFinder.rds")
+data_pbmc
+head(counts(data_pbmc))
+```
+
+
+
+## Dataset preprocessing
+We follow the Seurat v3 dataset preprocessing process. With Harmony integration, we create only one Seurat object with all cells, instead of one Seurat object per dataset.
+```{r preprocessing, echo=TRUE, message=FALSE, warning=FALSE}
+#set up seurat object and do seurat preprocessing
+pbmc <- as.Seurat(x = data_pbmc)
+pbmc <- Seurat::NormalizeData(pbmc, verbose=FALSE)
+pbmc <- FindVariableFeatures(pbmc, nfeatures = 2000)
+pbmc <- ScaleData(pbmc, verbose=FALSE)
+pbmc <- RunPCA(pbmc, npcs=30, verbose=FALSE)
+```
+
+We first analyzew the dataset and its uncorrected PCs:
+```{r firstplot, echo=TRUE, message=FALSE, warning=FALSE}
+#look at datasets in uncorrected PCs / Umap
+p1_bef <- DimPlot(pbmc, reduction = 'pca', group.by = "Sample")
+p1_bef
+p2_bef <- VlnPlot(pbmc, features = "PC_1", group.by = "Sample", pt.size = 0.01)
+p2_bef
+```
+We see that the datasets are not well integrated and cells cluster by dataset. Furthermore, the embedding values in the violin plot vary across the datasets. 
+
+
+## Run Harmony integration
+Pass the Seurat object to the RunHarmony function and specify which variable to integrate out. A Seurat object is returned with corrected Harmony coordinates.
+```{r integration, echo=TRUE, message=FALSE, warning=FALSE}
+pbmc <- RunHarmony(pbmc, "Sample", plot_convergence = TRUE,  max.iter.harmony = 15) 
+```
+The RunHarmony algorithm converges after 14 cycles.
+
+```{r embeddings, echo=TRUE, message=FALSE, warning=FALSE}
+#Access new Harmony embeddings 
+harmony_embeddings <- Embeddings(pbmc, 'harmony')
+harmony_embeddings[1:3, 1:3]
+```
+Here one can see the first 3 harmony embeddings on the first 3 genes in the dataset. 
+
+We now check if the cells are well embedded in the first two dimensions.
+```{r checkembeddingins}
+p1 <- DimPlot(pbmc, reduction = "harmony", group.by = "Sample")
+p1
+p2 <- VlnPlot(pbmc, features = "harmony_1", group.by = "Sample", pt.size = 0.01)
+p2
+```
+We observee that the embedding looks better integrated compared to before and the embedding values in the violin seem more aligned. 
+
+
+## Downstream analysis
+For comparison, we first perform the same UMAP and Nearest Neighbor analyses as done with the Seurat embeddings (same dims and resolution) on the uncorrected initial PC embeddings and afterwards on the integrated Harmony embeddings.
+
+Analysis of the uncorrected initial PC embeddings:
+```{r downstreamana1, echo=TRUE, message=FALSE, warning=FALSE}
+#Run UMAP, find clusters and plot by sample and cluster
+pbmc <- RunUMAP(pbmc, reduction = 'pca', dims = 1:30)
+pbmc <- FindNeighbors(pbmc, reduction='pca', dims = 1:10)
+pbmc <- FindClusters(pbmc, reduction='pca', resolution = 0.8)
+head(Idents(pbmc), 3)
+pbmc$initialcluster <- as.factor(Idents(pbmc))
+```
+We find 20 clusters that could be identified with the initial PC embeddings. 
+
+We plot the original dataset and clusters in UMAP plots.
+```{r downstreamana12, echo=TRUE, message=FALSE, warning=FALSE}
+p3_bef <- DimPlot(pbmc, reduction = "umap", group.by = "Sample")
+p3_bef
+p4_bef <- DimPlot(pbmc, reduction = "umap", group.by = "initialcluster", label = TRUE, repel = TRUE)
+p4_bef
+```
+
+
+
+Next, we perform the same downstream analysis on our integrated low dimensional Harmony embeddings. 
+```{r downstreamana2, echo=TRUE, message=FALSE, warning=FALSE}
+#Run UMAP, find clusters and plot by sample and cluster
+pbmc <- RunUMAP(pbmc, reduction = "harmony", dims=1:30)
+pbmc <- FindNeighbors(pbmc, reduction= "harmony", dims=1:10)
+pbmc <- FindClusters(pbmc, reduction="harmony", resolution=0.8)
+head(Idents(pbmc), 3)
+pbmc$harmonycluster <- as.factor(Idents(pbmc))
+```
+We find that 18 clusters could be identified with the integrated embedding with Harmony. 
+
+
+We plot the integrated dataset and clusters in UMAP plots. 
+```{r downstreamana22, echo=TRUE, message=FALSE, warning=FALSE}
+p3 <- DimPlot(pbmc, reduction = "umap", group.by = "Sample")
+p3
+p4 <- DimPlot(pbmc, reduction = "umap", group.by="harmonycluster", label = TRUE)
+p4
+```
+We see that the individual datasets are well integrated in the UMAP plot and 16 clusters can be identified.
