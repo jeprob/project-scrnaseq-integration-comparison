@@ -6,5 +6,10 @@ output:
 editor_options:
   chunk_output_type: console
 ---
+<br />
 
-Describe your project.
+### About the project: 
+This is a project for the STA 426 course offered by UZH Zurich with lecturers Prof. Dr. Mark Robinson and Dr. Hubert Rehrauer. It explores three different data integration methods for multiple single-cell RNAseq datasets and compares the integration results. The dataset used here is an unpublished human scRNA-seq dataset of PBMCs with 6 samples and rougly 45k cells in total.
+
+### About the author: 
+Jennifer Probst, MSc student in Computational Biology and Bioinformatics at ETH.

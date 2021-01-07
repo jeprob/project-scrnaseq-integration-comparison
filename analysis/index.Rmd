@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "Comparison of Single Cell RNA sequencing integration approaches"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -7,5 +7,15 @@ output:
 editor_options:
   chunk_output_type: console
 ---
+<br />
 
-Welcome to my research website.
+This project explores three different data integration methods for multiple single-cell RNAseq datasets and compares the integration results e.g. by cell clustering.
+
+The methods compared are:  
+
+* [Seurat v3](https://jeprob.github.io/project-scrnaseq-integration-comparison/analysiswithseurat.html)  
+* [Conos](https://jeprob.github.io/project-scrnaseq-integration-comparison/analysiswithconos.html)
+* [Harmony](https://jeprob.github.io/project-scrnaseq-integration-comparison/analysiswithseurat.html)
+
+
+The project report can be found under [my github page](https://github.com/jeprob/project-scrnaseq-integration-comparison).
