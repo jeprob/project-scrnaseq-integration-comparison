@@ -5,6 +5,12 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: Seurat
+    href: analysiswithseurat.html
+  - text: Conos
+    href: analysiswithconos.html
+  - text: Harmony
+    href: analysiswithharmony.html
   - text: About
     href: about.html
   - text: License
