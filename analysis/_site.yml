@@ -1,7 +1,7 @@
-name: "project-scrnaseq-integration-comparison"
+name: project-scrnaseq-integration-comparison
 output_dir: ../docs
 navbar:
-  title: "project-scrnaseq-integration-comparison"
+  title: project-scrnaseq-integration-comparison
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/jeprob/project-scrnaseq-integration-comparison
 output:
   workflowr::wflow_html:
     toc: yes
