@@ -9,7 +9,7 @@ editor_options:
 ---
 <br />
 
-This project explores three different data integration methods for multiple single-cell RNAseq datasets and compares the integration results e.g. by cell clustering.
+This project explores three different data integration methods for multiple single-cell RNAseq datasets and compares the integration results, e.g. by cell clustering.
 
 The methods compared are:  
 
