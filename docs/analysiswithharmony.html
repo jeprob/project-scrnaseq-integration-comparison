@@ -523,16 +523,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjeprobprojectscrnaseqintegrationcomparisontree751203d6d80b577eeada709fff7d744afbdd7d52targetblank751203da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/tree/751203d6d80b577eeada709fff7d744afbdd7d52" target="_blank">751203d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjeprobprojectscrnaseqintegrationcomparisontreeb05f3d0668901ab3c25655660842b1e27f8f6686targetblankb05f3d0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/tree/b05f3d0668901ab3c25655660842b1e27f8f6686" target="_blank">b05f3d0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjeprobprojectscrnaseqintegrationcomparisontree751203d6d80b577eeada709fff7d744afbdd7d52targetblank751203da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjeprobprojectscrnaseqintegrationcomparisontreeb05f3d0668901ab3c25655660842b1e27f8f6686targetblankb05f3d0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/tree/751203d6d80b577eeada709fff7d744afbdd7d52" target="_blank">751203d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/tree/b05f3d0668901ab3c25655660842b1e27f8f6686" target="_blank">b05f3d0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -576,6 +576,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jeprob/project-scrnaseq-integration-comparison/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/analysiswithharmony.html" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -662,15 +679,128 @@ pbmc &lt;- RunPCA(pbmc, npcs=30, verbose=FALSE)</code></pre>
 p1_bef &lt;- DimPlot(pbmc, reduction = &#39;pca&#39;, group.by = &quot;Sample&quot;)
 p1_bef</code></pre>
 <p><img src="figure/analysiswithharmony.Rmd/firstplot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-firstplot-1">
+Past versions of firstplot-1.png
+</button>
+</p>
+<div id="fig-firstplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/firstplot-1.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>p2_bef &lt;- VlnPlot(pbmc, features = &quot;PC_1&quot;, group.by = &quot;Sample&quot;, pt.size = 0.01)
 p2_bef</code></pre>
-<p><img src="figure/analysiswithharmony.Rmd/firstplot-2.png" width="672" style="display: block; margin: auto;" /> We see that the datasets are not well integrated and cells cluster by dataset. Furthermore, the embedding values in the violin plot vary across the datasets.</p>
+<p><img src="figure/analysiswithharmony.Rmd/firstplot-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-firstplot-2">
+Past versions of firstplot-2.png
+</button>
+</p>
+<div id="fig-firstplot-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/firstplot-2.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We see that the datasets are not well integrated and cells cluster by dataset. Furthermore, the embedding values in the violin plot vary across the datasets.</p>
 </div>
 <div id="run-harmony-integration" class="section level2">
 <h2>Run Harmony integration</h2>
 <p>Pass the Seurat object to the RunHarmony function and specify which variable to integrate out. A Seurat object is returned with corrected Harmony coordinates.</p>
 <pre class="r"><code>pbmc &lt;- RunHarmony(pbmc, &quot;Sample&quot;, plot_convergence = TRUE,  max.iter.harmony = 15) </code></pre>
-<p><img src="figure/analysiswithharmony.Rmd/integration-1.png" width="672" style="display: block; margin: auto;" /> The RunHarmony algorithm converges after 14 cycles.</p>
+<p><img src="figure/analysiswithharmony.Rmd/integration-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-integration-1">
+Past versions of integration-1.png
+</button>
+</p>
+<div id="fig-integration-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/integration-1.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The RunHarmony algorithm converges after 14 cycles.</p>
 <pre class="r"><code>#Access new Harmony embeddings 
 harmony_embeddings &lt;- Embeddings(pbmc, &#39;harmony&#39;)
 harmony_embeddings[1:3, 1:3]</code></pre>
@@ -683,9 +813,84 @@ het1.AAACCTGAGTGGGTTG-1  5.403800 -9.930276  2.691926</code></pre>
 <pre class="r"><code>p1 &lt;- DimPlot(pbmc, reduction = &quot;harmony&quot;, group.by = &quot;Sample&quot;)
 p1</code></pre>
 <p><img src="figure/analysiswithharmony.Rmd/checkembeddingins-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-checkembeddingins-1">
+Past versions of checkembeddingins-1.png
+</button>
+</p>
+<div id="fig-checkembeddingins-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/checkembeddingins-1.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>p2 &lt;- VlnPlot(pbmc, features = &quot;harmony_1&quot;, group.by = &quot;Sample&quot;, pt.size = 0.01)
 p2</code></pre>
-<p><img src="figure/analysiswithharmony.Rmd/checkembeddingins-2.png" width="672" style="display: block; margin: auto;" /> We observee that the embedding looks better integrated compared to before and the embedding values in the violin seem more aligned.</p>
+<p><img src="figure/analysiswithharmony.Rmd/checkembeddingins-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-checkembeddingins-2">
+Past versions of checkembeddingins-2.png
+</button>
+</p>
+<div id="fig-checkembeddingins-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/checkembeddingins-2.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We observee that the embedding looks better integrated compared to before and the embedding values in the violin seem more aligned.</p>
 </div>
 <div id="downstream-analysis" class="section level2">
 <h2>Downstream analysis</h2>
@@ -703,7 +908,7 @@ Number of edges: 1412412
 Running Louvain algorithm...
 Maximum modularity in 10 random starts: 0.8894
 Number of communities: 20
-Elapsed time: 20 seconds</code></pre>
+Elapsed time: 21 seconds</code></pre>
 <pre class="r"><code>head(Idents(pbmc), 3)</code></pre>
 <pre><code>het1.AAACCTGAGATGTTAG-1 het1.AAACCTGAGGTGGGTT-1 het1.AAACCTGAGTGGGTTG-1 
                       2                       4                       9 
@@ -714,9 +919,83 @@ Levels: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19</code></pre>
 <pre class="r"><code>p3_bef &lt;- DimPlot(pbmc, reduction = &quot;umap&quot;, group.by = &quot;Sample&quot;)
 p3_bef</code></pre>
 <p><img src="figure/analysiswithharmony.Rmd/downstreamana12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-downstreamana12-1">
+Past versions of downstreamana12-1.png
+</button>
+</p>
+<div id="fig-downstreamana12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/downstreamana12-1.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>p4_bef &lt;- DimPlot(pbmc, reduction = &quot;umap&quot;, group.by = &quot;initialcluster&quot;, label = TRUE, repel = TRUE)
 p4_bef</code></pre>
 <p><img src="figure/analysiswithharmony.Rmd/downstreamana12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-downstreamana12-2">
+Past versions of downstreamana12-2.png
+</button>
+</p>
+<div id="fig-downstreamana12-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/downstreamana12-2.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Next, we perform the same downstream analysis on our integrated low dimensional Harmony embeddings.</p>
 <pre class="r"><code>#Run UMAP, find clusters and plot by sample and cluster
 pbmc &lt;- RunUMAP(pbmc, reduction = &quot;harmony&quot;, dims=1:30)
@@ -730,7 +1009,7 @@ Number of edges: 1357634
 Running Louvain algorithm...
 Maximum modularity in 10 random starts: 0.8800
 Number of communities: 16
-Elapsed time: 18 seconds</code></pre>
+Elapsed time: 19 seconds</code></pre>
 <pre class="r"><code>head(Idents(pbmc), 3)</code></pre>
 <pre><code>het1.AAACCTGAGATGTTAG-1 het1.AAACCTGAGGTGGGTT-1 het1.AAACCTGAGTGGGTTG-1 
                       5                       7                       1 
@@ -741,9 +1020,84 @@ Levels: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</code></pre>
 <pre class="r"><code>p3 &lt;- DimPlot(pbmc, reduction = &quot;umap&quot;, group.by = &quot;Sample&quot;)
 p3</code></pre>
 <p><img src="figure/analysiswithharmony.Rmd/downstreamana22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-downstreamana22-1">
+Past versions of downstreamana22-1.png
+</button>
+</p>
+<div id="fig-downstreamana22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/downstreamana22-1.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>p4 &lt;- DimPlot(pbmc, reduction = &quot;umap&quot;, group.by=&quot;harmonycluster&quot;, label = TRUE)
 p4</code></pre>
-<p><img src="figure/analysiswithharmony.Rmd/downstreamana22-2.png" width="672" style="display: block; margin: auto;" /> We see that the individual datasets are well integrated in the UMAP plot and 16 clusters can be identified.</p>
+<p><img src="figure/analysiswithharmony.Rmd/downstreamana22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-downstreamana22-2">
+Past versions of downstreamana22-2.png
+</button>
+</p>
+<div id="fig-downstreamana22-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/jeprob/project-scrnaseq-integration-comparison/blob/ed3bbe133e4d52c409e660dc2399d250ff938467/docs/figure/analysiswithharmony.Rmd/downstreamana22-2.png" target="_blank">ed3bbe1</a>
+</td>
+<td>
+jeprob
+</td>
+<td>
+2021-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We see that the individual datasets are well integrated in the UMAP plot and 16 clusters can be identified.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

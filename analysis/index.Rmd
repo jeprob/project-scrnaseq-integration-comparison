@@ -15,7 +15,7 @@ The methods compared are:
 
 * [Seurat v3](https://jeprob.github.io/project-scrnaseq-integration-comparison/analysiswithseurat.html)  
 * [Conos](https://jeprob.github.io/project-scrnaseq-integration-comparison/analysiswithconos.html)
-* [Harmony](https://jeprob.github.io/project-scrnaseq-integration-comparison/analysiswithseurat.html)
+* [Harmony](https://jeprob.github.io/project-scrnaseq-integration-comparison/analysiswithharmony.html)
 
 
 The project report can be found under [my github page](https://github.com/jeprob/project-scrnaseq-integration-comparison).
