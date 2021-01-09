@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Conos integration: 
-Dataset preprocessing and integration was adapted from [this vignette](http://htmlpreview.github.io/?https://github.com/satijalab/seurat-wrappers/blob/master/docs/conos.html) on the Seurat github. The Conos integration followed [this vignette](https://github.com/kharchenkolab/conos/blob/master/vignettes/walkthrough.md) by the developers of Conos, subsection: 'Systematic comparative analysis of human PBMC'. 
+Dataset preprocessing and integration was adapted from [this vignette](http://htmlpreview.github.io/?https://github.com/satijalab/seurat-wrappers/blob/master/docs/conos.html) on the Seurat github, subsection: 'Systematic comparative analysis of human PBMC'. The Conos integration followed [this vignette](https://github.com/kharchenkolab/conos/blob/master/vignettes/walkthrough.md) by the developers of Conos. 
 
 
 ## Load packages
@@ -24,7 +24,7 @@ library(Seurat)
 ```
 
 
-## Read in the data and set up Seurat object
+## Data readin
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_pbmc <- readRDS("./data/wonglab_10x_XLP2_sce_after_scDblFinder.rds")
 data_pbmc
@@ -32,7 +32,7 @@ head(counts(data_pbmc))
 ```
 
 
-## Set up a Seurat object and preprocess with Seurat
+## Set up a Seurat object 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 #set up seurat object
 pbmc <- as.Seurat(x=data_pbmc)
@@ -44,14 +44,14 @@ str(pbmc.panel,1)
 
 
 ## Preprocessing with Seurat
-Normal Seurat preprocessing steps are NormalizeDate, FindVariableFeatures, ScaleData and run PCA and TSNE for each dataset. 
+Normal Seurat preprocessing steps are NormalizeDate, FindVariableFeatures, ScaleData and run PCA and t-SNE for each dataset. 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 for (i in 1:length(pbmc.panel)){
   pbmc.panel[[i]] <- NormalizeData(pbmc.panel[[i]]) %>% FindVariableFeatures() %>% ScaleData() %>% RunPCA(verbose=FALSE) %>% RunTSNE(verbose=FALSE)
 }
 ```
 
-## Integrating dataset with Conos
+## Integration with Conos
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # construct Conos object for the panel of samples
 pbmc.con <- Conos$new(pbmc.panel)
@@ -72,8 +72,8 @@ plotComponentVariance(pbmc.con, space='PCA')
 We can see that the first PC already explaines a large fraction of the variance. The second and the third PC also explain a much higher fraction of variance than the remaining ones. 
 
 
-### Downstream analysis
-We can now use the graph to find and visualize global clusters. Here, we use the Leiden community detection.
+## Downstream analysis
+We can now use the graph to find and visualize global clusters. Here, we use the Leiden community detection and visulatization in a two-dimensional space using the largeVis algorithm, which is default for Conos.
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 pbmc.con$findCommunities(method=leiden.community, resolution=0.8)
 ```
@@ -82,21 +82,21 @@ As a next step, the joint graph can be used to visualize the integration of data
 ```{r}
 pbmc.con$plotGraph(color.by='sample', mark.groups=FALSE, alpha=0.1, show.legend=TRUE)
 ```
-One can observe that the data is integrated in a joint TSNE space and cells do not cluster by dataset. 
+One can observe that the data is well integrated in the space and cells do not cluster by dataset. 
 
 ```{r}
 pbmc.con$plotGraph(alpha=0.5)
 ```
 We find that there are 14 clusters identified in total. 
 
-Next, the joint clustering for each panel are plotted, where cell labels obtained from the joint clustering are added in the original TSNE embedding. 
+Next, cells in the original t-SNE embedding were plotted for each panel and cell labels obtained from the joint clustering were added.
 ```{r}
 pbmc.con$plotPanel(font.size=4)
 ```
-We find different amounts of cell types in the individual datasets. To have a closer look at the composition of the individual datasets, we plot cluster barplots for the individual datasets. 
+We observe that different amounts of the individual cell types are present in the different samples. To have a closer look at the composition of the individual samples, we plot cluster barplots for the individual datasets. 
 ```{r}
 plotClusterBarplots(pbmc.con, legend.height = 0.1)
 ```
-Many interesting things can be observed in this plot. It is noteable that most of the cells in ko1 belong to cluster 2. Furthermore, the distribution of cells to clusters differs from wt1 to wt2, judged by eye. Cluster 12 is not present in the dataset het1.
+Many interesting things can be observed in this plot. The number of cells belonging to the clusters has a big range from many 1000 to less than 10 cells. Cells from smaller clusters still seemed to be observed in all samples, except for cluster 14 which only appears in samples ko1 and wt1 and cluster 12 which does not appear in het1.  It is notable that most of the cells in ko1 belong either to cluster 2 or 14. Furthermore, there is no obvious trend, judged by eye, that wildtype sample cells seemed to be differently distributed than the remaining samples het1, m2 and p2. 
 
 Further downstream analysis such as gene expression visualization or hierarchical community structure generation would be possible with Conos. For more information visit [this vignette](https://github.com/kharchenkolab/conos/blob/master/vignettes/walkthrough.md).
