@@ -21,6 +21,7 @@ library(conos)
 library(dplyr)
 library(pagoda2)
 library(Seurat) 
+set.seed(333)
 ```
 
 
