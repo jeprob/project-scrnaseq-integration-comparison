@@ -19,6 +19,7 @@ library(Seurat)
 library(cowplot)
 library(SeuratDisk)
 library(SeuratData)
+set.seed(333)
 ```
 
 
@@ -99,6 +100,7 @@ We find 20 clusters identified from the Seurat integrated embeddings.
 Now we run the same analysis for the original dataset without integration. The only thing that changes is that one first has to find variable features on the whole unprocessed dataset, which had already been done for the integrated dataset.
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 #standard workflow for visualization
+pbmc <- NormalizeData(pbmc)
 pbmc <- FindVariableFeatures(pbmc, nfeatues=2000)
 pbmc <- ScaleData(pbmc, verbose = FALSE)
 pbmc <- RunPCA(pbmc, npcs = 30, verbose = FALSE)
