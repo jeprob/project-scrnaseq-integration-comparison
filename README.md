@@ -3,4 +3,4 @@
 This is a project for the STA 426 course offered bz UZH Zurich with lecturers Prof. Dr. Mark Robinson and Dr. Hubert Rehrauer. It explores three different data integration methods for multiple single-cell RNAseq datasets and compares the integration results.
 
 Here is the link to the [project website](https://jeprob.github.io/project-scrnaseq-integration-comparison/index.html).
-The project report can be found under XX. 
+The project report is the file 'Scrnaseq_Integration_Comparison_Jennifer_Probst.pdf'.
